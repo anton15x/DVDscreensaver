@@ -1,5 +1,6 @@
 # DVDscreensaver
 Bouncing DVD Video Screensaver
+Demo: https://anton15x.github.io/DVDscreensaver/demo/
 
 ## Include the script
 ```html
@@ -102,11 +103,11 @@ let dvd = new dvdscreensaver(animationActive = true,
                              icon = null, 
                              width = "15%", 
                              startX = 0, 
-							 startY = 0, 
+                             startY = 0, 
                              speedX = 3, 
-							 speedY = 2, 
+                             speedY = 2, 
                              dirX = '+', 
-							 dirY = '+');
+                             dirY = '+');
 ```
 
  * **animationActive**: (boolean) [default true] Starts the animation if true.
