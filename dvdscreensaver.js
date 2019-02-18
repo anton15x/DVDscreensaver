@@ -8,23 +8,38 @@
 /* ----------------------------------------------- */
 
 class dvdscreensaver {
-  constructor(animationActive = true, icon = null, width = "15%", startX = 0, startY = 0, speedX = 3, speedY = 2, dirX = '+', dirY = '+') {
+  constructor(options = {}, icon = null, width = "15%", startX = 0, startY = 0, speedX = 3, speedY = 2, dirX = '+', dirY = '+') {
+
+    if (typeof options.animationActive == 'undefined') {
+      options.animationActive = true;
+    }
+    if (typeof options.addstyle == 'undefined') {
+      options.addstyle = true;
+    }
+    if (typeof options.changecolor == 'undefined') {
+      options.changecolor = true;
+    }
 
     if (icon == null) {
       let img = document.createElement("img");
       //img.src = "./img/DVD-Video_Logo.svg"; //Error if html is not in the same folder as the img folder
-      img.src = getRunningScriptPath()+"/img/DVD-Video_Logo.svg";
+      img.src = getRunningScriptPath() + "/img/DVD-Video_Logo.svg";
       this.icon = document.body.appendChild(img);
     } else {
       this.icon = icon;
     }
 
-    this.icon.style.cssText += "position:absolute;"
-    this.icon.style.cssText += "width:" + width + ";height:auto;";
-    this.icon.style.cssText += "background:transparent;";
-    this.icon.style.cssText += "pointer-events: none;";
+    this.icon.style.position = "absolute";
+    if (options.addstyle) {
+      this.changeWidth(width);
+      this.icon.style.background = "transparent";
+      this.icon.style.cssText += "pointer-events: none;";
+    }
 
     this.oldColorNumber = 0;
+    if (options.changecolor == false) {
+      this.oldColorNumber = -1;
+    }
     this.changeColor();
     this.speedX = speedX;
     this.speedY = speedY;
@@ -40,7 +55,7 @@ class dvdscreensaver {
     this.setX(startX);
     this.setY(startY);
 
-    if (animationActive == true) {
+    if (options.animationActive == true) {
       this.start();
     }
 
@@ -48,9 +63,11 @@ class dvdscreensaver {
   }
 
   changeColor() {
-    let newColorNumber = randomIntFromIntervalNoRepeat(0, dvdscreensaver.filterColors.length - 1, this.oldColorNumber);
-    this.icon.style.filter = dvdscreensaver.filterColors[newColorNumber];
-    this.oldColorNumber = newColorNumber;
+    if (this.oldColorNumber > -1) {
+      let newColorNumber = randomIntFromIntervalNoRepeat(0, dvdscreensaver.filterColors.length - 1, this.oldColorNumber);
+      this.icon.style.filter = dvdscreensaver.filterColors[newColorNumber];
+      this.oldColorNumber = newColorNumber;
+    }
   }
 
   changeWidth(width) {
@@ -166,7 +183,7 @@ class dvdscreensaver {
       xadd = this.speedX;
       yadd = this.speedY;
     } else {
-    //  console.log("add x " + xadd + "!!!, add y " + yadd + "!!!");
+      //  console.log("add x " + xadd + "!!!, add y " + yadd + "!!!");
     }
 
     //  console.log("this.icon.parentNode.clientWidth: " + this.icon.parentNode.clientWidth + ", this.icon.parentNode.clientHeight: " + this.icon.parentNode.clientHeight + ", dirX: " + this.dirX + ", dirY: " + this.dirY + ", xadd: " + xadd + ", yadd: " + yadd + ", forcestop: " + forcestop);
@@ -254,11 +271,11 @@ class dvdscreensaver {
       }
     }
   }
-  getImg(){
+  getImg() {
     return this.icon;
   }
-  setImg(img){
-    this.icon=img;
+  setImg(img) {
+    this.icon = img;
   }
 }
 
@@ -344,17 +361,18 @@ function randomIntFromInterval(min, max) { // min and max included
 }
 
 //getRunningScript() & getRunningScriptPath(): https://stackoverflow.com/questions/2255689/how-to-get-the-file-path-of-the-currently-executing-javascript-code
-function getRunningScript(){
-        let err = new Error()
-        let link = err.stack.split('(')
-        link = link[1]
-        link = link.split(')')[0]
-        link = link.split(':')
-        link.splice(-2, 2)
-        link = link.join(':')
-        return link
+function getRunningScript() {
+  let err = new Error()
+  let link = err.stack.split('(')
+  link = link[1]
+  link = link.split(')')[0]
+  link = link.split(':')
+  link.splice(-2, 2)
+  link = link.join(':')
+  return link
 }
-function getRunningScriptPath(){
+
+function getRunningScriptPath() {
   var script = getRunningScript();
   var path = script.substring(0, script.lastIndexOf('/'));
   return path;

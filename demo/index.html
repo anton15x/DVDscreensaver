@@ -15,8 +15,17 @@
       position: absolute;
       top: 50px;
       left: 16px;
-      width: 50vw;
-      height: 50vh;
+      width: 800px;
+      height: 600px;
+    }
+
+    .divtestbig {
+      position: absolute;
+      top: 50px;
+      left: 16px;
+      width: 1200px;
+      height: 800px;
+      border-style: dotted;
     }
 
     .border {
@@ -28,8 +37,8 @@
 <body>
   <img src='../img/DVD-Video_Logo.svg' id='dvdlogo' />
 
-  <div class="divtest">
-    <div class="divtest border">
+  <div class="divtestbig" id="dvdlogo2boxbig">
+    <div class="divtest border" id="dvdlogo2box">
       <img src='../img/DVD_Logo.svg' id='dvdlogo2' />
     </div>
   </div>
@@ -38,13 +47,41 @@
 
   <script src="../dvdscreensaver.js"></script>
   <script>
-    var dvd = new dvdscreensaver(true, document.getElementById('dvdlogo'));
+    var dvd = new dvdscreensaver({
+      addstyle: true,
+      animationActive: true
+    }, document.getElementById('dvdlogo'));
     dvd.setY(100);
     dvd.changeSpeed(5, 3);
 
-    var dvd2 = new dvdscreensaver(true, document.getElementById('dvdlogo2'), "15%", 200, 200, 2, 1, '-', '+');
-    dvd2.setX(150);
-    dvd2.changeDir("-", "+");
+    var dvd2 = new dvdscreensaver({
+      addstyle: true,
+      animationActive: false
+    }, document.getElementById('dvdlogo2'), "16%", 0, 0, 1, 1, '+', '+');
+    //dvd2.setX(150);
+    //dvd2.changeDir("-", "+");
+    let faktor = 100;
+    let faktor_i = 5;
+    //dvd2.changeHeight("15%");
+    dvd2.changeSize(120 + "px", 60 + "px");
+    dvd2.changeSize(dvd2.getImg().parentNode.clientWidth / faktor_i + "px", dvd2.getImg().parentNode.clientHeight / faktor_i + "px");
+    //dvd2.changeSpeed((dvd2.getImg().parentNode.clientWidth-dvd2.getImg().clientWidth)/faktor, (dvd2.getImg().parentNode.clientHeight-dvd2.getImg().clientHeight)/faktor);
+    dvd2.changeSpeed(dvd2.getImg().parentNode.clientWidth / faktor, dvd2.getImg().parentNode.clientHeight / faktor);
+    dvd2.start();
+
+    var box = new dvdscreensaver({
+      addstyle: false,
+      animationActive: true,
+      changecolor: false,
+    }, document.getElementById("dvdlogo2box"),null,null,null,3,2);
+
+    var boxbig = new dvdscreensaver({
+      addstyle: false,
+      animationActive: false,
+      changecolor: false,
+    }, document.getElementById("dvdlogo2boxbig"));
+
+    //box.getImg().style.position = "absolute";
 
     var dvd5 = new dvdscreensaver();
     dvd5.stop();
@@ -63,10 +100,12 @@
   </div>
   <script>
     var dvdlogosize = 15;
+
     function dvdlogobigger() {
       dvdlogosize++;
       dvdlogo.style.width = dvdlogosize + "%";
     }
+
     function dvdlogosmaller() {
       dvdlogosize--;
       dvdlogo.style.width = dvdlogosize + "%";
