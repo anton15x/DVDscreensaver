@@ -1,6 +1,5 @@
 # DVDscreensaver
 Bouncing DVD Video Screensaver
-Demo: https://anton15x.github.io/DVDscreensaver/demo/
 
 ## Include the script
 ```html
@@ -99,18 +98,21 @@ dvd.setImg(img);
 
 ## DVD Screensaver Default Parameters
 ```js
-let dvd = new dvdscreensaver(animationActive = true, 
+let dvd = new dvdscreensaver(options = {}
                              icon = null, 
                              width = "15%", 
                              startX = 0, 
-                             startY = 0, 
+							 startY = 0, 
                              speedX = 3, 
-                             speedY = 2, 
+							 speedY = 2, 
                              dirX = '+', 
-                             dirY = '+');
+							 dirY = '+');
 ```
 
- * **animationActive**: (boolean) [default true] Starts the animation if true.
+ * **options**: (object) [default {}]
+   * **animationActive**: (boolean) [default true] Starts the animation if true.
+   * **addstyle**: (boolean) [default true] Add style tags to image if true.
+   * **changecolor**: (boolean) [default true] Changes the color on wallhit if true.
  * **icon**: (element) [default null] Specifies the img element that should bounce. If null, one is created in the body element
  * **width**: (string) [default "15%"] The width of the image (various css units possible).
  * **startX**: (int) [default 0] X-Cordinade to start.
