@@ -18,7 +18,7 @@ This will create a new Bouncing DVD Video Logo.
 ```html
 <img src='./img/DVD-Video_Logo.svg' id='dvdlogo' />
 <script>
-  let dvd = new dvdscreensaver(true, document.getElementById('dvdlogo');
+  let dvd = new dvdscreensaver({}, document.getElementById('dvdlogo');
 </script>
 ```
 This will create a new Bouncing DVD Video Logo with the selected Image.
@@ -98,15 +98,15 @@ dvd.setImg(img);
 
 ## DVD Screensaver Default Parameters
 ```js
-let dvd = new dvdscreensaver(options = {}
+let dvd = new dvdscreensaver(options = {}, 
                              icon = null, 
                              width = "15%", 
                              startX = 0, 
-							 startY = 0, 
+                             startY = 0, 
                              speedX = 3, 
-							 speedY = 2, 
+                             speedY = 2, 
                              dirX = '+', 
-							 dirY = '+');
+                             dirY = '+');
 ```
 
  * **options**: (object) [default {}]
