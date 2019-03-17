@@ -13,8 +13,8 @@
 
     .divtest {
       position: absolute;
-      top: 50px;
-      left: 16px;
+      /*top: 50px;
+      left: 16px;*/
       width: 800px;
       height: 600px;
     }
@@ -49,15 +49,17 @@
   <script>
     var dvd = new dvdscreensaver({
       addstyle: true,
-      animationActive: true
-    }, document.getElementById('dvdlogo'));
+      animationActive: true,
+      icon: document.getElementById('dvdlogo'),
+    });
     dvd.setY(100);
     dvd.changeSpeed(5, 3);
 
     var dvd2 = new dvdscreensaver({
       addstyle: true,
-      animationActive: false
-    }, document.getElementById('dvdlogo2'), "16%", 0, 0, 1, 1, '+', '+');
+      animationActive: false,
+      icon: document.getElementById('dvdlogo2')
+    });
     //dvd2.setX(150);
     //dvd2.changeDir("-", "+");
     let faktor = 100;
@@ -73,13 +75,15 @@
       addstyle: false,
       animationActive: true,
       changecolor: false,
-    }, document.getElementById("dvdlogo2box"),null,null,null,3,2);
+      icon: document.getElementById("dvdlogo2box")
+    },null,null,null,65,2);
 
     var boxbig = new dvdscreensaver({
       addstyle: false,
       animationActive: false,
       changecolor: false,
-    }, document.getElementById("dvdlogo2boxbig"));
+      icon: document.getElementById("dvdlogo2boxbig")
+    });
 
     //box.getImg().style.position = "absolute";
 
@@ -90,27 +94,59 @@
   </script>
 
   <!-- Some Buttons to edit some effects of one dvd logo-->
-  <div style="position:absolute;top:8px;">
+  <div style="position:absolute;top:0.5em;">
+    dvd:
     <button onclick="dvd.start()">Start</button>
     <button onclick="dvd.start(true)">Faster</button>
     <button onclick="dvd.stop()">Slower</button>
     <button onclick="dvd.stop(0)">Stop</button>
-    <button onclick="dvdlogobigger()">+</button>
-    <button onclick="dvdlogosmaller()">-</button>
+    <button onclick='dvd.changeWidth((dvd.getWidth(true)[0]-(-1))+"%")'>+</button>
+    <button onclick='dvd.changeWidth((dvd.getWidth(true)[0]-1)+"%");'>-</button>
   </div>
-  <script>
-    var dvdlogosize = 15;
 
-    function dvdlogobigger() {
-      dvdlogosize++;
-      dvdlogo.style.width = dvdlogosize + "%";
-    }
+  <div style="position:absolute;top:2em;">
+    dvd2:
+    <button onclick="dvd2.start()">Start</button>
+    <button onclick="dvd2.start(true)">Faster</button>
+    <button onclick="dvd2.stop()">Slower</button>
+    <button onclick="dvd2.stop(0)">Stop</button>
+    <button onclick='dvd2.changeWidth((dvd2.getWidth(true)[0]-(-10))+dvd2.getWidth(true)[1],false)'>+</button>
+    <button onclick='dvd2.changeWidth((dvd2.getWidth(true)[0]-10)+dvd2.getWidth(true)[1],false);'>-</button>
+  </div>
 
-    function dvdlogosmaller() {
-      dvdlogosize--;
-      dvdlogo.style.width = dvdlogosize + "%";
-    }
-  </script>
+  <div style="position:absolute;top:3.5em;">
+    dvd5:
+    <button onclick="dvd5.start()">Start</button>
+    <button onclick="dvd5.start(true)">Faster</button>
+    <button onclick="dvd5.stop()">Slower</button>
+    <button onclick="dvd5.stop(0)">Stop</button>
+    <button onclick='dvd5.changeWidth((dvd5.getWidth(true)[0]-(-10))+dvd5.getWidth(true)[1],false)'>+</button>
+    <button onclick='dvd5.changeWidth((dvd5.getWidth(true)[0]-10)+dvd5.getWidth(true)[1],false);'>-</button>
+  </div>
+
+  <div style="position:absolute;top:5em;">
+    box:
+    <button onclick="box.start()">Start</button>
+    <button onclick="box.start(true)">Faster</button>
+    <button onclick="box.stop()">Slower</button>
+    <button onclick="box.stop(0)">Stop</button>
+<!--
+    <button onclick='box.changeWidth((box.getWidth(true)[0]-(-10))+box.getWidth(true)[1],true)'>+</button>
+    <button onclick='box.changeWidth((box.getWidth(true)[0]-10)+box.getWidth(true)[1],true);'>-</button>
+-->
+  </div>
+
+  <div style="position:absolute;top:6.5em;">
+    boxbig:
+    <button onclick="boxbig.start()">Start</button>
+    <button onclick="boxbig.start(true)">Faster</button>
+    <button onclick="boxbig.stop()">Slower</button>
+    <button onclick="boxbig.stop(0)">Stop</button>
+<!--
+    <button onclick='boxbig.changeWidth((boxbig.getWidth(true)[0]-(-10))+boxbig.getWidth(true)[1],true)'>+</button>
+    <button onclick='boxbig.changeWidth((boxbig.getWidth(true)[0]-10)+boxbig.getWidth(true)[1],true);'>-</button>
+-->
+  </div>
 
 </body>
 

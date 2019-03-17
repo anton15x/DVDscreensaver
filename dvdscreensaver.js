@@ -4,12 +4,15 @@
 /* Demowebsite : anton15x.github.io/DVDscreensaver/demo
 /* GitHub : github.com/anton15x.github.io/DVDscreensaver
 /* How to use? : Check the GitHub README or the demo
-/* v0.1.0
+/* v0.1.1
 /* ----------------------------------------------- */
 
 class dvdscreensaver {
-  constructor(options = {}, icon = null, width = "15%", startX = 0, startY = 0, speedX = 3, speedY = 2, dirX = '+', dirY = '+') {
+  constructor(options = {}, ) {
 
+    if (typeof options.icon == 'undefined') {
+      options.icon = null;
+    }
     if (typeof options.animationActive == 'undefined') {
       options.animationActive = true;
     }
@@ -19,19 +22,43 @@ class dvdscreensaver {
     if (typeof options.changecolor == 'undefined') {
       options.changecolor = true;
     }
+    if (typeof options.iconParent == 'undefined') {
+      options.iconParent = document.body;
+    }
+    if (typeof options.width == 'undefined') {
+      options.width = "15%";
+    }
+    if (typeof options.startX == 'undefined') {
+      options.startX = 0;
+    }
+    if (typeof options.startY == 'undefined') {
+      options.startY = 0;
+    }
+    if (typeof options.speedX == 'undefined') {
+      options.speedX = 3;
+    }
+    if (typeof options.speedY == 'undefined') {
+      options.speedY = 2;
+    }
+    if (typeof options.dirX == 'undefined') {
+      options.dirX = '+';
+    }
+    if (typeof options.dirY == 'undefined') {
+      options.dirY = '+';
+    }
 
-    if (icon == null) {
+    if (options.icon == null) {
       let img = document.createElement("img");
       //img.src = "./img/DVD-Video_Logo.svg"; //Error if html is not in the same folder as the img folder
       img.src = getRunningScriptPath() + "/img/DVD-Video_Logo.svg";
-      this.icon = document.body.appendChild(img);
+      this.icon = options.iconParent.appendChild(img);
     } else {
-      this.icon = icon;
+      this.icon = options.icon;
     }
 
     this.icon.style.position = "absolute";
     if (options.addstyle) {
-      this.changeWidth(width);
+      this.changeWidth(options.width, false);
       this.icon.style.background = "transparent";
       this.icon.style.cssText += "pointer-events: none;";
     }
@@ -41,10 +68,10 @@ class dvdscreensaver {
       this.oldColorNumber = -1;
     }
     this.changeColor();
-    this.speedX = speedX;
-    this.speedY = speedY;
-    this.dirX = dirX;
-    this.dirY = dirY;
+    this.speedX = options.speedX;
+    this.speedY = options.speedY;
+    this.dirX = options.dirX;
+    this.dirY = options.dirY;
 
     this.checkcornerhit = false; //variable to only check cornerhit after wallhit
     this.cornerHits = 0;
@@ -52,8 +79,13 @@ class dvdscreensaver {
     this.animationActive = 0; //this.start() uses this var
     this.stopAnimation = 0;
 
-    this.setX(startX);
-    this.setY(startY);
+    //this.icon.style.top="0px";
+    //this.icon.style.left="0px";
+    this.setX(options.startX);
+    this.setY(options.startY);
+    //this.left=options.startX;
+    //this.top=options.startY;
+
 
     if (options.animationActive == true) {
       this.start();
@@ -70,13 +102,35 @@ class dvdscreensaver {
     }
   }
 
-  changeWidth(width) {
+  changeWidth(width,keepSideRatio=true) {
+    if(keepSideRatio){
+      this.icon.style.height=this.icon.style.height/this.icon.style.width*width;
+    }else{
+      this.icon.style.height = "auto";
+    }
     this.icon.style.width = width;
-    this.icon.style.height = "auto";
   }
-  changeHeight(height) {
-    this.icon.style.width = "auto";
+  getWidth(split=false){
+    if(split){
+      return splitNumberUnit(this.getWidth(false));
+    }else{
+      return this.icon.style.width;
+    }
+  }
+  changeHeight(height,keepSideRatio=true) {
+    if(keepSideRatio){
+      this.icon.style.width=this.icon.style.width/this.icon.style.height*height;
+    }else{
+      this.icon.style.width = "auto";
+    }
     this.icon.style.height = height;
+  }
+  getHeight(split=false){
+    if(split){
+      return splitNumberUnit(this.getHeight(false));
+    }else{
+      return this.icon.style.height;
+    }
   }
   changeSize(width, height) {
     this.icon.style.width = width;
@@ -217,10 +271,15 @@ class dvdscreensaver {
           this.setIcon(xadd2, yadd2, ++forcestop, false);
 
         } else {
-          console.log("forcestop!!!");
+          console.log("stopped to long setIcon loop!!!");
         }
       }
     }
+  }
+
+  setXY(x,y){
+    this.setX(x);
+    this.setY(y);
   }
 
   setX(x) {
@@ -377,3 +436,8 @@ function getRunningScriptPath() {
   var path = script.substring(0, script.lastIndexOf('/'));
   return path;
 };
+
+
+function splitNumberUnit(str){
+  return str.match(/[0-9]+|[^0-9]+/gi);
+}
