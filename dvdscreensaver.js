@@ -79,6 +79,11 @@ class dvdscreensaver {
     this.animationActive = 0; //this.start() uses this var
     this.stopAnimation = 0;
 
+    this.hitTop=false;
+    this.hitRight=false;
+    this.hitBottom=false;
+    this.hitLeft=false;
+
     //this.icon.style.top="0px";
     //this.icon.style.left="0px";
     this.setX(options.startX);
@@ -157,22 +162,26 @@ class dvdscreensaver {
 
   checkWallHit(countwallhit = false) {
     let wallhit = false;
-    if (this.checkHitTop()) {
+    if (this.hitTop||this.checkHitTop()) {
+      this.hitTop=false;
       this.dirY = '+';
       this.wallHit(countwallhit);
       wallhit = true;
     }
-    if (this.checkHitRight()) {
+    if (this.hitRight||this.checkHitRight()) {
+      this.hitRight=false;
       this.dirX = '-';
       this.wallHit(countwallhit);
       wallhit = true;
     }
-    if (this.checkHitBottom()) {
+    if (this.hitBottom||this.checkHitBottom()) {
+      this.hitBottom=false;
       this.dirY = '-';
       this.wallHit(countwallhit);
       wallhit = true;
     }
-    if (this.checkHitLeft()) {
+    if (this.hitLeft||this.checkHitLeft()) {
+      this.hitLeft=false;
       this.dirX = '+';
       this.wallHit(countwallhit);
       wallhit = true;
@@ -286,9 +295,11 @@ class dvdscreensaver {
     //console.log("set x to: " + x + "px");
     if (this.checkHitRight(0, x)) {
       x = this.icon.parentNode.clientWidth - this.icon.clientWidth;
+      this.hitRight=true;
     }
     if (this.checkHitLeft(0, x)) {
       x = 0;
+      this.hitLeft=true;
     }
     //console.log("set corrigated x to: " + x + "px");
     this.icon.style.left = x + 'px';
@@ -298,9 +309,11 @@ class dvdscreensaver {
     //console.log("set y to: " + y + "px");
     if (this.checkHitBottom(0, y)) {
       y = (this.icon.parentNode.clientHeight - this.icon.clientHeight);
+      this.hitBottom=true;
     }
     if (this.checkHitTop(0, y)) {
       y = 0;
+      this.hitTop=true;
     }
     //console.log("set corrigated y to: " + y + "px");
     this.icon.style.top = y + 'px';

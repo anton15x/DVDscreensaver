@@ -113,19 +113,19 @@ dvd.setImg(img);
 
 ## DVD Screensaver Default Parameters
 ```js
-let dvd = new dvdscreensaver({ 
-                               icon = null, 
-                               animationActive: true, 
-                               addstyle: true, 
-                               changecolor: true, 
-							   iconParent: document.body, 
-                               width: "15%", 
-                               startX: 0, 
-                               startY: 0, 
-                               speedX: 3, 
-                               speedY: 2, 
-                               dirX: '+', 
-                               dirY: '+' 
+let dvd = new dvdscreensaver({
+                               icon: null,
+                               animationActive: true,
+                               addstyle: true,
+                               changecolor: true,
+                               iconParent: document.body,
+                               width: "15%",
+                               startX: 0,
+                               startY: 0,
+                               speedX: 3,
+                               speedY: 2,
+                               dirX: '+',
+                               dirY: '+'
 							 }
                              );
 ```
@@ -147,4 +147,3 @@ let dvd = new dvdscreensaver({
 ## Source of the image used:
 DVD Logo: https://commons.wikimedia.org/wiki/File:DVD_logo.svg<br/>
 DVD Video Logo: https://commons.wikimedia.org/wiki/File:DVD-Video_Logo.svg
-
