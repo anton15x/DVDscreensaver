@@ -56,7 +56,12 @@ class dvdscreensaver {
       this.icon = options.icon;
     }
 
-    this.icon.style.position = "absolute";
+    if (options.iconParent.isEqualNode(document.body)) {
+      this.icon.style.position = "fixed";
+    } else {
+      this.icon.style.position = "absolute";
+    }
+
     if (options.addstyle) {
       this.changeWidth(options.width, false);
       this.icon.style.background = "transparent";
@@ -80,10 +85,10 @@ class dvdscreensaver {
     this.animationActive = 0; //this.start() uses this var
     this.stopAnimation = 0;
 
-    this.hitTop=false;
-    this.hitRight=false;
-    this.hitBottom=false;
-    this.hitLeft=false;
+    this.hitTop = false;
+    this.hitRight = false;
+    this.hitBottom = false;
+    this.hitLeft = false;
 
     //this.icon.style.top="0px";
     //this.icon.style.left="0px";
@@ -108,33 +113,33 @@ class dvdscreensaver {
     }
   }
 
-  changeWidth(width,keepSideRatio=true) {
-    if(keepSideRatio){
-      this.icon.style.height=this.icon.style.height/this.icon.style.width*width;
-    }else{
+  changeWidth(width, keepSideRatio = true) {
+    if (keepSideRatio) {
+      this.icon.style.height = this.icon.style.height / this.icon.style.width * width;
+    } else {
       this.icon.style.height = "auto";
     }
     this.icon.style.width = width;
   }
-  getWidth(split=false){
-    if(split){
+  getWidth(split = false) {
+    if (split) {
       return splitNumberUnit(this.getWidth(false));
-    }else{
+    } else {
       return this.icon.style.width;
     }
   }
-  changeHeight(height,keepSideRatio=true) {
-    if(keepSideRatio){
-      this.icon.style.width=this.icon.style.width/this.icon.style.height*height;
-    }else{
+  changeHeight(height, keepSideRatio = true) {
+    if (keepSideRatio) {
+      this.icon.style.width = this.icon.style.width / this.icon.style.height * height;
+    } else {
       this.icon.style.width = "auto";
     }
     this.icon.style.height = height;
   }
-  getHeight(split=false){
-    if(split){
+  getHeight(split = false) {
+    if (split) {
       return splitNumberUnit(this.getHeight(false));
-    }else{
+    } else {
       return this.icon.style.height;
     }
   }
@@ -163,26 +168,26 @@ class dvdscreensaver {
 
   checkWallHit(countwallhit = false) {
     let wallhit = false;
-    if (this.hitTop||this.checkHitTop()) {
-      this.hitTop=false;
+    if (this.hitTop || this.checkHitTop()) {
+      this.hitTop = false;
       this.dirY = '+';
       this.wallHit(countwallhit);
       wallhit = true;
     }
-    if (this.hitRight||this.checkHitRight()) {
-      this.hitRight=false;
+    if (this.hitRight || this.checkHitRight()) {
+      this.hitRight = false;
       this.dirX = '-';
       this.wallHit(countwallhit);
       wallhit = true;
     }
-    if (this.hitBottom||this.checkHitBottom()) {
-      this.hitBottom=false;
+    if (this.hitBottom || this.checkHitBottom()) {
+      this.hitBottom = false;
       this.dirY = '-';
       this.wallHit(countwallhit);
       wallhit = true;
     }
-    if (this.hitLeft||this.checkHitLeft()) {
-      this.hitLeft=false;
+    if (this.hitLeft || this.checkHitLeft()) {
+      this.hitLeft = false;
       this.dirX = '+';
       this.wallHit(countwallhit);
       wallhit = true;
@@ -287,7 +292,7 @@ class dvdscreensaver {
     }
   }
 
-  setXY(x,y){
+  setXY(x, y) {
     this.setX(x);
     this.setY(y);
   }
@@ -296,11 +301,11 @@ class dvdscreensaver {
     //console.log("set x to: " + x + "px");
     if (this.checkHitRight(0, x)) {
       x = this.icon.parentNode.clientWidth - this.icon.clientWidth;
-      this.hitRight=true;
+      this.hitRight = true;
     }
     if (this.checkHitLeft(0, x)) {
       x = 0;
-      this.hitLeft=true;
+      this.hitLeft = true;
     }
     //console.log("set corrigated x to: " + x + "px");
     this.icon.style.left = x + 'px';
@@ -310,11 +315,11 @@ class dvdscreensaver {
     //console.log("set y to: " + y + "px");
     if (this.checkHitBottom(0, y)) {
       y = (this.icon.parentNode.clientHeight - this.icon.clientHeight);
-      this.hitBottom=true;
+      this.hitBottom = true;
     }
     if (this.checkHitTop(0, y)) {
       y = 0;
-      this.hitTop=true;
+      this.hitTop = true;
     }
     //console.log("set corrigated y to: " + y + "px");
     this.icon.style.top = y + 'px';
@@ -452,6 +457,6 @@ function getRunningScriptPath() {
 };
 
 
-function splitNumberUnit(str){
+function splitNumberUnit(str) {
   return str.match(/[0-9]+|[^0-9]+/gi);
 }
