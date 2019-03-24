@@ -4,7 +4,7 @@
 /* Demowebsite : anton15x.github.io/DVDscreensaver/demo
 /* GitHub : github.com/anton15x.github.io/DVDscreensaver
 /* How to use? : Check the GitHub README or the demo
-/* v0.1.1
+/* v0.1.2
 /* ----------------------------------------------- */
 
 class dvdscreensaver {
@@ -61,6 +61,7 @@ class dvdscreensaver {
       this.changeWidth(options.width, false);
       this.icon.style.background = "transparent";
       this.icon.style.cssText += "pointer-events: none;";
+      this.icon.style.cssText += "user-select: none;";
     }
 
     this.oldColorNumber = 0;
