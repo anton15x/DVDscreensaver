@@ -4,7 +4,7 @@
 /* Demowebsite : anton15x.github.io/DVDscreensaver/demo
 /* GitHub : github.com/anton15x.github.io/DVDscreensaver
 /* How to use? : Check the GitHub README or the demo
-/* v0.1.2
+/* v0.1.2.1
 /* ----------------------------------------------- */
 
 class dvdscreensaver {
@@ -56,7 +56,7 @@ class dvdscreensaver {
       this.icon = options.icon;
     }
 
-    if (options.iconParent.isEqualNode(document.body)) {
+    if (this.icon.parentNode.isEqualNode(document.body)) {
       this.icon.style.position = "fixed";
     } else {
       this.icon.style.position = "absolute";
