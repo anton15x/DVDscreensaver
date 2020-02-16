@@ -1,0 +1,33 @@
+{
+  "name": "dvg_screensaver",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/main.ts",
+  "scripts": {
+    "build": "npx tsc -p tsconfig.json",
+    "bundle": "npx webpack --config webpack.dev.js",
+    "bundle:prod": "npx webpack --config webpack.prod.js",
+    "compile": "npm run build && npm run bundle",
+    "compile:prod": "npm run build && npm run bundle:prod",
+    "compile:both": "npm run build && npm run bundle && npm run bundle:prod",
+    "lint": "npx tslint -t stylish --project tsconfig.json",
+    "test": "npm run test:coverage",
+    "test_debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
+    "test:coverage": "npx jest --coverage",
+    "test:watch": "npx jest --watch"
+  },
+  "author": "Anton Hinterhofer",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.24",
+    "@types/node": "^12.12.21",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}

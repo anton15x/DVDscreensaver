@@ -45,9 +45,9 @@
 
   <div id="dvd-stats"></div>
 
-  <script src="../dvdscreensaver.js"></script>
+  <script src="../build/bundle.dev.js"></script>
   <script>
-    var dvd = new dvdscreensaver({
+    var dvd = new DvdScreensaver.default({
       addstyle: true,
       animationActive: true,
       icon: document.getElementById('dvdlogo'),
@@ -55,7 +55,7 @@
     dvd.setY(100);
     dvd.changeSpeed(5, 3);
 
-    var dvd2 = new dvdscreensaver({
+    var dvd2 = new DvdScreensaver.default({
       addstyle: true,
       animationActive: false,
       icon: document.getElementById('dvdlogo2')
@@ -71,14 +71,14 @@
     dvd2.changeSpeed(dvd2.getImg().parentNode.clientWidth / faktor, dvd2.getImg().parentNode.clientHeight / faktor);
     dvd2.start();
 
-    var box = new dvdscreensaver({
+    var box = new DvdScreensaver.default({
       addstyle: false,
       animationActive: true,
       changecolor: false,
       icon: document.getElementById("dvdlogo2box")
     },null,null,null,65,2);
 
-    var boxbig = new dvdscreensaver({
+    var boxbig = new DvdScreensaver.default({
       addstyle: false,
       animationActive: false,
       changecolor: false,
@@ -87,7 +87,7 @@
 
     //box.getImg().style.position = "absolute";
 
-    var dvd5 = new dvdscreensaver();
+    var dvd5 = new DvdScreensaver.default();
     dvd5.stop();
     dvd5.setX(300);
     dvd5.setY(100);
