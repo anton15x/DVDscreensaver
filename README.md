@@ -1,16 +1,30 @@
 # DVDscreensaver
 Bouncing DVD Video Screensaver
-Demo: https://anton15x.github.io/DVDscreensaver/demo/
+Demo: https://anton15x.github.io/DVDscreensaver/demo/minimaldemo.html
+Demo2: https://anton15x.github.io/DVDscreensaver/demo/
 
 ## Include the script
 ```html
-<script src="js/dvdscreensaver.js"></script>
+<script src="bundle/bundle.js"></script>
+```
+Or developer version
+```html
+<script src="bundle/bundle.dev.js"></script>
+```
+
+## Compile the script
+```bash
+npm install
+# to get bundle.js (minified version)
+npm run compile:prod
+# to get bundle.dev.js (developer version)
+npm run compile
 ```
 
 ### Init DVD Screensaver
 ```html
 <script>
-  let dvd = new dvdscreensaver();
+  let dvd = new DvdScreensaver.default();
 </script>
 ```
 This will create a new Bouncing DVD Video Logo.
@@ -19,7 +33,7 @@ This will create a new Bouncing DVD Video Logo.
 ```html
 <img src='./img/DVD-Video_Logo.svg' id='dvdlogo' />
 <script>
-  let dvd = new dvdscreensaver( {icon: document.getElementById('dvdlogo'), } );
+  let dvd = new DvdScreensaver.default( {icon: document.getElementById('dvdlogo'), } );
 </script>
 ```
 This will create a new Bouncing DVD Video Logo with the selected Image.
@@ -43,9 +57,9 @@ This will show the statistics of the bouncing DVD Logos in the bottom left corne
 
 <div id="dvd-stats"></div>
 
-<script src="js/dvdscreensaver.js"></script>
+<script src="bundle/bundle.dev.js"></script>
 <script>
-  let dvd = new dvdscreensaver();
+  let dvd = new DvdScreensaver.default();
 </script>
 ```
 
@@ -82,15 +96,15 @@ dvd.changeSpeed(5,3);
 ```js
 dvd.changeDir('+','+');
 ```
-* **setX(x)**: (int) Set the X-Cordinade of the image (only the the visible area).
+* **setX(x)**: (int) Set the X-Coordinate of the image (only the the visible area).
 ```js
 dvd.setX(250);
 ```
-* **setY(y)**: (int) Set the Y-Cordinade of the image (only the the visible area).
+* **setY(y)**: (int) Set the Y-Coordinate of the image (only the the visible area).
 ```js
 dvd.setY(150);
 ```
-* **setXY(x,y)**: (int, int) Set the X- and Y-Cordinade of the image (only the the visible area).
+* **setXY(x,y)**: (int, int) Set the X- and Y-Coordinate of the image (only the the visible area).
 ```js
 dvd.setY(50, 20);
 ```
@@ -98,7 +112,7 @@ dvd.setY(50, 20);
 ```js
 dvd.start();
 ```
-* **stop(toKeep = this.animationActive - 1)**: (int) [default this.animationActive - 1 (=>will stop one animation)] Stops one animation (the remaining amout of window.requestAnimationFrame can be choosen)
+* **stop(toKeep = this.animationActive - 1)**: (int) [default this.animationActive - 1 (=>will stop one animation)] Stops one animation (the remaining amout of window.requestAnimationFrame can be chosen)
 ```js
 dvd.stop();
 ```
@@ -113,7 +127,7 @@ dvd.setImg(img);
 
 ## DVD Screensaver Default Parameters
 ```js
-let dvd = new dvdscreensaver({
+let dvd = new DvdScreensaver.default({
                                icon: null,
                                animationActive: true,
                                addstyle: true,
@@ -135,12 +149,12 @@ let dvd = new dvdscreensaver({
    * **animationActive**: (boolean) [default true] Starts the animation if true.
    * **addstyle**: (boolean) [default true] Add style tags to image if true.
    * **changecolor**: (boolean) [default true] Changes the color on wallhit if true.
-   * **iconParent**: (element) [default document.body] Where to create the icon, if no icon spcified.
+   * **iconParent**: (element) [default document.body] Where to create the icon, if no icon specified.
    * **width**: (string) [default "15%"] The width of the image (various css units possible).
-   * **startX**: (int) [default 0] X-Cordinade to start.
-   * **startY**: (int) [default 0] Y-Cordinade to start.
-   * **speedX**: (int) [default 3] Moving pixels in x-Cordinade during at Frame.
-   * **speedY**: (int) [default 2] Moving pixels in y-Cordinade during at Frame.
+   * **startX**: (int) [default 0] X-Coordinate to start.
+   * **startY**: (int) [default 0] Y-Coordinate to start.
+   * **speedX**: (int) [default 3] Moving pixels in x-Coordinate during at Frame.
+   * **speedY**: (int) [default 2] Moving pixels in y-Coordinate during at Frame.
    * **dirX**: (string) [default '+'] Starting X-Direction.
    * **dirY**: (string) [default '-'] Starting Y-Direction.
 

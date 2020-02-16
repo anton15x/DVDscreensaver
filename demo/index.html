@@ -45,7 +45,7 @@
 
   <div id="dvd-stats"></div>
 
-  <script src="../build/bundle.dev.js"></script>
+  <script src="../build/bundle.dev.js" onerror="document.write('<script src=\'bundle.dev.js\'></script>')"></script>
   <script>
     var dvd = new DvdScreensaver.default({
       addstyle: true,
