@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import * as path from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
@@ -9,9 +9,12 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/main.ts'),
+      entry: path.resolve(__dirname, 'src/main.ts'),
       formats: ['umd'],
       name: "DVDscreensaver",
     },
+  },
+  server: {
+    open: 'demo/index.html',
   },
 });

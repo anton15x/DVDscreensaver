@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>DVD Screensaver</title>
+  <meta charset='utf-8' />
+  <style>
+    body {
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .divtest {
+      position: absolute;
+      /*top: 50px;
+      left: 16px;*/
+      width: 800px;
+      height: 600px;
+    }
+
+    .divtestbig {
+      position: absolute;
+      top: 50px;
+      left: 16px;
+      width: 1200px;
+      height: 800px;
+      border-style: dotted;
+    }
+
+    .border {
+      border-style: solid;
+    }
+  </style>
+</head>
+
+<body>
+  <img src='../img/DVD-Video_Logo.svg' id='dvdlogo' />
+
+  <div class="divtestbig" id="dvdlogo2boxbig">
+    <div class="divtest border" id="dvdlogo2box">
+      <img src='../img/DVD_Logo.svg' id='dvdlogo2' />
+    </div>
+  </div>
+
+  <div id="dvd-stats"></div>
+
+  <!--
+  <script type="module">
+    import DvdScreensaver from '../src/main.ts'
+    // TODO: vite dev build auto reload?
+  </script>
+  -->
+  <script src="../dist/dvd_screensaver.umd.js"></script>
+  <script>
+    var dvd = new DVDscreensaver({
+      addstyle: true,
+      animationActive: true,
+      icon: document.getElementById('dvdlogo'),
+    });
+    dvd.setY(100);
+    dvd.changeSpeed(5, 3);
+
+    var dvd2 = new DVDscreensaver({
+      addstyle: true,
+      animationActive: false,
+      icon: document.getElementById('dvdlogo2')
+    });
+    //dvd2.setX(150);
+    //dvd2.changeDir("-", "+");
+    let faktor = 100;
+    let faktor_i = 5;
+    //dvd2.changeHeight("15%");
+    dvd2.changeSize(120 + "px", 60 + "px");
+    dvd2.changeSize(dvd2.getImg().parentNode.clientWidth / faktor_i + "px", dvd2.getImg().parentNode.clientHeight / faktor_i + "px");
+    //dvd2.changeSpeed((dvd2.getImg().parentNode.clientWidth-dvd2.getImg().clientWidth)/faktor, (dvd2.getImg().parentNode.clientHeight-dvd2.getImg().clientHeight)/faktor);
+    dvd2.changeSpeed(dvd2.getImg().parentNode.clientWidth / faktor, dvd2.getImg().parentNode.clientHeight / faktor);
+    dvd2.start();
+
+    var box = new DVDscreensaver({
+      addstyle: false,
+      animationActive: true,
+      changecolor: false,
+      icon: document.getElementById("dvdlogo2box")
+    },null,null,null,65,2);
+
+    var boxbig = new DVDscreensaver({
+      addstyle: false,
+      animationActive: false,
+      changecolor: false,
+      icon: document.getElementById("dvdlogo2boxbig")
+    });
+
+    //box.getImg().style.position = "absolute";
+
+    var dvd5 = new DVDscreensaver();
+    dvd5.stop();
+    dvd5.setX(300);
+    dvd5.setY(100);
+  </script>
+
+  <!-- Some Buttons to edit some effects of one dvd logo-->
+  <div style="position:absolute;top:0.5em;">
+    dvd:
+    <button onclick="dvd.start()">Start</button>
+    <button onclick="dvd.start(true)">Faster</button>
+    <button onclick="dvd.stop()">Slower</button>
+    <button onclick="dvd.stop(0)">Stop</button>
+    <button onclick='dvd.changeWidth((dvd.getWidth(true)[0]-(-1))+"%")'>+</button>
+    <button onclick='dvd.changeWidth((dvd.getWidth(true)[0]-1)+"%");'>-</button>
+  </div>
+
+  <div style="position:absolute;top:2em;">
+    dvd2:
+    <button onclick="dvd2.start()">Start</button>
+    <button onclick="dvd2.start(true)">Faster</button>
+    <button onclick="dvd2.stop()">Slower</button>
+    <button onclick="dvd2.stop(0)">Stop</button>
+    <button onclick='dvd2.changeWidth((dvd2.getWidth(true)[0]-(-10))+dvd2.getWidth(true)[1],false)'>+</button>
+    <button onclick='dvd2.changeWidth((dvd2.getWidth(true)[0]-10)+dvd2.getWidth(true)[1],false);'>-</button>
+  </div>
+
+  <div style="position:absolute;top:3.5em;">
+    dvd5:
+    <button onclick="dvd5.start()">Start</button>
+    <button onclick="dvd5.start(true)">Faster</button>
+    <button onclick="dvd5.stop()">Slower</button>
+    <button onclick="dvd5.stop(0)">Stop</button>
+    <button onclick='dvd5.changeWidth((dvd5.getWidth(true)[0]-(-10))+dvd5.getWidth(true)[1],false)'>+</button>
+    <button onclick='dvd5.changeWidth((dvd5.getWidth(true)[0]-10)+dvd5.getWidth(true)[1],false);'>-</button>
+  </div>
+
+  <div style="position:absolute;top:5em;">
+    box:
+    <button onclick="box.start()">Start</button>
+    <button onclick="box.start(true)">Faster</button>
+    <button onclick="box.stop()">Slower</button>
+    <button onclick="box.stop(0)">Stop</button>
+<!--
+    <button onclick='box.changeWidth((box.getWidth(true)[0]-(-10))+box.getWidth(true)[1],true)'>+</button>
+    <button onclick='box.changeWidth((box.getWidth(true)[0]-10)+box.getWidth(true)[1],true);'>-</button>
+-->
+  </div>
+
+  <div style="position:absolute;top:6.5em;">
+    boxbig:
+    <button onclick="boxbig.start()">Start</button>
+    <button onclick="boxbig.start(true)">Faster</button>
+    <button onclick="boxbig.stop()">Slower</button>
+    <button onclick="boxbig.stop(0)">Stop</button>
+<!--
+    <button onclick='boxbig.changeWidth((boxbig.getWidth(true)[0]-(-10))+boxbig.getWidth(true)[1],true)'>+</button>
+    <button onclick='boxbig.changeWidth((boxbig.getWidth(true)[0]-10)+boxbig.getWidth(true)[1],true);'>-</button>
+-->
+  </div>
+
+</body>
+
+</html>
