@@ -1,9 +1,10 @@
 # DVDscreensaver
-Bouncing DVD Video Screensaver [![Build Status](https://travis-ci.org/anton15x/DVDscreensaver.svg?branch=master)](https://travis-ci.org/anton15x/DVDscreensaver)
+[![Build Status](https://github.com/anton15x/DVDscreensaver/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/anton15x/DVDscreensaver/actions/workflows/main.yml)
+Bouncing DVD Video Screensaver
 
-Demo: https://anton15x.github.io/DVDscreensaver/demo/minimaldemo.html
+Demo: [https://anton15x.github.io/DVDscreensaver/demo/minimal_demo.html](https://anton15x.github.io/DVDscreensaver/demo/minimal_demo.html)
 
-Demo2: https://anton15x.github.io/DVDscreensaver/demo/
+Demo2: [https://anton15x.github.io/DVDscreensaver/demo/demo.html](https://anton15x.github.io/DVDscreensaver/demo/demo.html)
 
 ## Include the script
 ```html
