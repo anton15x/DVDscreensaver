@@ -19,6 +19,11 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Fix Upload artifact cuts folder name
+        run: |
+          mv dist dist2
+          mkdir dist
+          mv dist2 dist/dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
