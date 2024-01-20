@@ -4,7 +4,7 @@
 /* DemoWebsite : anton15x.github.io/DVDscreensaver/demo
 /* GitHub : github.com/anton15x.github.io/DVDscreensaver
 /* How to use? : Check the GitHub README or the demo
-/* v0.1.2.1
+/* v0.0.1
 /* ----------------------------------------------- */
 
 import DvdScreensaver from './dvdscreensaver';

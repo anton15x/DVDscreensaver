@@ -1,33 +1,32 @@
 {
-  "name": "dvg_screensaver",
+  "name": "dvd_screensaver",
+  "author": "Anton Hinterhofer",
   "version": "0.0.1",
   "description": "",
-  "main": "src/main.ts",
+  "main": "dist/dvd_screensaver.umd.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "npx tsc -p tsconfig.json",
-    "bundle": "npx webpack --config webpack.dev.js",
-    "bundle:prod": "npx webpack --config webpack.prod.js",
-    "compile": "npm run build && npm run bundle",
-    "compile:prod": "npm run build && npm run bundle:prod",
-    "compile:both": "npm run build && npm run bundle && npm run bundle:prod",
-    "lint": "npx tslint -t stylish --project tsconfig.json",
-    "test": "npm run test:coverage",
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "echo TODO",
+    "test": "npm run test_coverage",
     "test_debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-    "test:coverage": "npx jest --coverage",
-    "test:watch": "npx jest --watch"
+    "test_coverage": "jest --coverage",
+    "test_watch": "jest --watch",
+    "preview": "vite preview"
   },
-  "author": "Anton Hinterhofer",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^24.0.24",
-    "@types/node": "^12.12.21",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.2.0",
-    "tslint": "^5.20.1",
-    "typescript": "^3.7.4",
-    "url-loader": "^3.0.0",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-transformer-svg": "^2.0.2",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vite-plugin-dts": "^3.7.1"
   }
 }

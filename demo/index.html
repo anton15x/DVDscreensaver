@@ -45,9 +45,15 @@
 
   <div id="dvd-stats"></div>
 
-  <script src="../build/bundle.dev.js" onerror="document.write('<script src=\'bundle.dev.js\'></script>')"></script>
+  <!--
+  <script type="module">
+    import DvdScreensaver from '../src/main.ts'
+    // TODO: vite dev build auto reload?
+  </script>
+  -->
+  <script src="../dist/dvd_screensaver.umd.js"></script>
   <script>
-    var dvd = new DvdScreensaver.default({
+    var dvd = new DVDscreensaver({
       addstyle: true,
       animationActive: true,
       icon: document.getElementById('dvdlogo'),
@@ -55,7 +61,7 @@
     dvd.setY(100);
     dvd.changeSpeed(5, 3);
 
-    var dvd2 = new DvdScreensaver.default({
+    var dvd2 = new DVDscreensaver({
       addstyle: true,
       animationActive: false,
       icon: document.getElementById('dvdlogo2')
@@ -71,14 +77,14 @@
     dvd2.changeSpeed(dvd2.getImg().parentNode.clientWidth / faktor, dvd2.getImg().parentNode.clientHeight / faktor);
     dvd2.start();
 
-    var box = new DvdScreensaver.default({
+    var box = new DVDscreensaver({
       addstyle: false,
       animationActive: true,
       changecolor: false,
       icon: document.getElementById("dvdlogo2box")
     },null,null,null,65,2);
 
-    var boxbig = new DvdScreensaver.default({
+    var boxbig = new DVDscreensaver({
       addstyle: false,
       animationActive: false,
       changecolor: false,
@@ -87,7 +93,7 @@
 
     //box.getImg().style.position = "absolute";
 
-    var dvd5 = new DvdScreensaver.default();
+    var dvd5 = new DVDscreensaver();
     dvd5.stop();
     dvd5.setX(300);
     dvd5.setY(100);

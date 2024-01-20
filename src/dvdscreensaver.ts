@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import DVDVideoLogoSvgCode from '../img/DVD-Video_Logo.svg';
 
 type Direction = '+'|'-';
