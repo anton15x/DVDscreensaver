@@ -9,20 +9,23 @@
     "dist"
   ],
   "scripts": {
+    "build": "vite build",
     "dev": "vite",
     "doc": "typedoc src/main.ts --readme ./README.md --out ./docs",
-    "doc2": "typedoc src/main.ts",
-    "build": "vite build",
     "lint": "echo TODO",
-    "test": "npm run test_coverage",
+    "spellcheck": "cspell lint .",
+    "test": "npm run lint && npm run spellcheck && npm run test_coverage",
     "test_debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "test_coverage": "jest --coverage",
     "test_watch": "jest --watch",
+    "tsc": "tsc",
     "preview": "vite preview"
   },
   "license": "ISC",
   "devDependencies": {
+    "@cspell/cspell-types": "^8.3.2",
     "@types/jest": "^29.5.11",
+    "cspell": "^8.3.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-transformer-svg": "^2.0.2",
@@ -30,6 +33,7 @@
     "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
+    "vite-plugin-checker": "^0.6.2",
     "vite-plugin-dts": "^3.7.1"
   }
 }

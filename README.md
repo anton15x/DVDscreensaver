@@ -8,44 +8,46 @@ Demo2: [https://anton15x.github.io/DVDscreensaver/demo/demo.html](https://anton1
 
 ## Include the script
 ```html
-<script src="bundle/bundle.js"></script>
-```
-Or developer version
-```html
-<script src="bundle/bundle.dev.js"></script>
+<script src="node_modules/dvd_screensaver/dist/dvd_screensaver.umd.js"></script>
 ```
 
-## Compile the script
+## Compile
 ```bash
 npm install
-# to get bundle.js (minified version)
-npm run compile:prod
-# to get bundle.dev.js (developer version)
-npm run compile
+npm run build
 ```
 
 ### Init DVD Screensaver
 ```html
 <script>
-  let dvd = new DvdScreensaver.default();
+  let dvd = new DvdScreensaver();
 </script>
 ```
 This will create a new Bouncing DVD Video Logo.
 
 #### Init DVD Screensaver with existing Image
 ```html
-<img src='./img/DVD-Video_Logo.svg' id='dvdlogo' />
+<img src='./DVD-Video_Logo.svg' id='dvdlogo' />
 <script>
-  let dvd = new DvdScreensaver.default( {icon: document.getElementById('dvdlogo'), } );
+  let dvd = new DvdScreensaver({ icon: document.getElementById('dvdlogo') });
 </script>
 ```
 This will create a new Bouncing DVD Video Logo with the selected Image.
 
 ## Statistics
-```html
-<div id="dvd-stats"></div>
+global statistics of all screensavers can get print:
+```js
+  DVDscreensaver.enableStatistics();
 ```
 This will show the statistics of the bouncing DVD Logos in the bottom left corner.
+
+```html
+<div id="dvd-stats"></div>
+<script>
+  DvdScreensaver.createStatsElemBasic(document.getElementById("dvd-stats));
+</script>
+```
+This create the statistics element inside the passed div element.
 
 ## Minimized Example of one bouncing DVD Logo
 ```html
@@ -58,11 +60,9 @@ This will show the statistics of the bouncing DVD Logos in the bottom left corne
   }
 </style>
 
-<div id="dvd-stats"></div>
-
-<script src="bundle/bundle.dev.js"></script>
+<script src="node_modules/dvd_screensaver/dist/dvd_screensaver.umd.js"></script>
 <script>
-  let dvd = new DvdScreensaver.default();
+  let dvd = new DvdScreensaver();
 </script>
 ```
 
@@ -115,7 +115,7 @@ dvd.setY(50, 20);
 ```js
 dvd.start();
 ```
-* **stop(toKeep = this.animationActive - 1)**: (int) [default this.animationActive - 1 (=>will stop one animation)] Stops one animation (the remaining amout of window.requestAnimationFrame can be chosen)
+* **stop(toKeep = this.animationActive - 1)**: (int) [default this.animationActive - 1 (=>will stop one animation)] Stops one animation (the remaining amount of window.requestAnimationFrame can be chosen)
 ```js
 dvd.stop();
 ```
@@ -130,28 +130,27 @@ dvd.setImg(img);
 
 ## DVD Screensaver Default Parameters
 ```js
-let dvd = new DvdScreensaver.default({
-                               icon: null,
-                               animationActive: true,
-                               addstyle: true,
-                               changecolor: true,
-                               iconParent: document.body,
-                               width: "15%",
-                               startX: 0,
-                               startY: 0,
-                               speedX: 3,
-                               speedY: 2,
-                               dirX: '+',
-                               dirY: '+'
-							 }
-                             );
+let dvd = new DvdScreensaver({
+  icon: null,
+  animationActive: true,
+  addStyle: true,
+  changeColor: true,
+  iconParent: document.body,
+  width: "15%",
+  startX: 0,
+  startY: 0,
+  speedX: 3,
+  speedY: 2,
+  dirX: '+',
+  dirY: '+',
+});
 ```
 
  * **options**: (object)
    * **icon**: (element) [default null] Specifies the img element that should bounce. If null, one is created in the body element
    * **animationActive**: (boolean) [default true] Starts the animation if true.
-   * **addstyle**: (boolean) [default true] Add style tags to image if true.
-   * **changecolor**: (boolean) [default true] Changes the color on wallhit if true.
+   * **addStyle**: (boolean) [default true] Add style tags to image if true.
+   * **changeColor**: (boolean) [default true] Changes the color on wall hit if true.
    * **iconParent**: (element) [default document.body] Where to create the icon, if no icon specified.
    * **width**: (string) [default "15%"] The width of the image (various css units possible).
    * **startX**: (int) [default 0] X-Coordinate to start.

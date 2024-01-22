@@ -7,6 +7,6 @@
 /* v0.0.1
 /* ----------------------------------------------- */
 
-import DvdScreensaver from './dvdscreensaver';
+import DvdScreensaver from './dvd_screensaver';
 
 export default DvdScreensaver;

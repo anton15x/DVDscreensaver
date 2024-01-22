@@ -11,7 +11,7 @@
       height: 100vh;
     }
 
-    .divtest {
+    .div-test {
       position: absolute;
       /*top: 50px;
       left: 16px;*/
@@ -19,7 +19,7 @@
       height: 600px;
     }
 
-    .divtestbig {
+    .div-test-big {
       position: absolute;
       top: 50px;
       left: 16px;
@@ -37,13 +37,11 @@
 <body>
   <img src='../img/DVD-Video_Logo.svg' id='dvdlogo' />
 
-  <div class="divtestbig" id="dvdlogo2boxbig">
-    <div class="divtest border" id="dvdlogo2box">
+  <div class="div-test-big" id="dvdlogo2box_big">
+    <div class="div-test border" id="dvdlogo2box">
       <img src='../img/DVD_Logo.svg' id='dvdlogo2' />
     </div>
   </div>
-
-  <div id="dvd-stats"></div>
 
   <!--
   <script type="module">
@@ -53,8 +51,10 @@
   -->
   <script src="../dist/dvd_screensaver.umd.js"></script>
   <script>
+    DVDscreensaver.enableStatistics();
+
     var dvd = new DVDscreensaver({
-      addstyle: true,
+      addStyle: true,
       animationActive: true,
       icon: document.getElementById('dvdlogo'),
     });
@@ -62,33 +62,33 @@
     dvd.changeSpeed(5, 3);
 
     var dvd2 = new DVDscreensaver({
-      addstyle: true,
+      addStyle: true,
       animationActive: false,
-      icon: document.getElementById('dvdlogo2')
+      icon: document.getElementById('dvdlogo2'),
     });
     //dvd2.setX(150);
     //dvd2.changeDir("-", "+");
-    let faktor = 100;
-    let faktor_i = 5;
+    let factor = 100;
+    let factor_i = 5;
     //dvd2.changeHeight("15%");
     dvd2.changeSize(120 + "px", 60 + "px");
-    dvd2.changeSize(dvd2.getImg().parentNode.clientWidth / faktor_i + "px", dvd2.getImg().parentNode.clientHeight / faktor_i + "px");
-    //dvd2.changeSpeed((dvd2.getImg().parentNode.clientWidth-dvd2.getImg().clientWidth)/faktor, (dvd2.getImg().parentNode.clientHeight-dvd2.getImg().clientHeight)/faktor);
-    dvd2.changeSpeed(dvd2.getImg().parentNode.clientWidth / faktor, dvd2.getImg().parentNode.clientHeight / faktor);
+    dvd2.changeSize(dvd2.getImg().parentNode.clientWidth / factor_i + "px", dvd2.getImg().parentNode.clientHeight / factor_i + "px");
+    //dvd2.changeSpeed((dvd2.getImg().parentNode.clientWidth-dvd2.getImg().clientWidth)/factor, (dvd2.getImg().parentNode.clientHeight-dvd2.getImg().clientHeight)/factor);
+    dvd2.changeSpeed(dvd2.getImg().parentNode.clientWidth / factor, dvd2.getImg().parentNode.clientHeight / factor);
     dvd2.start();
 
     var box = new DVDscreensaver({
-      addstyle: false,
+      addStyle: false,
       animationActive: true,
-      changecolor: false,
+      changeColor: false,
       icon: document.getElementById("dvdlogo2box")
     },null,null,null,65,2);
 
-    var boxbig = new DVDscreensaver({
-      addstyle: false,
+    var boxBig = new DVDscreensaver({
+      addStyle: false,
       animationActive: false,
-      changecolor: false,
-      icon: document.getElementById("dvdlogo2boxbig")
+      changeColor: false,
+      icon: document.getElementById("dvdlogo2box_big")
     });
 
     //box.getImg().style.position = "absolute";
@@ -143,14 +143,14 @@
   </div>
 
   <div style="position:absolute;top:6.5em;">
-    boxbig:
-    <button onclick="boxbig.start()">Start</button>
-    <button onclick="boxbig.start(true)">Faster</button>
-    <button onclick="boxbig.stop()">Slower</button>
-    <button onclick="boxbig.stop(0)">Stop</button>
+    box big:
+    <button onclick="boxBig.start()">Start</button>
+    <button onclick="boxBig.start(true)">Faster</button>
+    <button onclick="boxBig.stop()">Slower</button>
+    <button onclick="boxBig.stop(0)">Stop</button>
 <!--
-    <button onclick='boxbig.changeWidth((boxbig.getWidth(true)[0]-(-10))+boxbig.getWidth(true)[1],true)'>+</button>
-    <button onclick='boxbig.changeWidth((boxbig.getWidth(true)[0]-10)+boxbig.getWidth(true)[1],true);'>-</button>
+    <button onclick='boxBig.changeWidth((boxBig.getWidth(true)[0]-(-10))+boxBig.getWidth(true)[1],true)'>+</button>
+    <button onclick='boxBig.changeWidth((boxBig.getWidth(true)[0]-10)+boxBig.getWidth(true)[1],true);'>-</button>
 -->
   </div>
 

@@ -8,7 +8,7 @@ export default class DvdScreensaver {
   private animationActive: number;
   private stopAnimation: number;
   private oldColorNumber: number;
-  private checkcornerhit: boolean;
+  private shouldCheckCornerHit: boolean;
 
   private speedX: number;
   private speedY: number;
@@ -20,7 +20,7 @@ export default class DvdScreensaver {
    * Counters (nor read jet)
    */
   private cornerHits: number;
-  private wallhits: number;
+  private wallHits: number;
 
   private hitTop: boolean;
   private hitRight: boolean;
@@ -35,11 +35,11 @@ export default class DvdScreensaver {
     if (typeof options.animationActive === 'undefined') {
       options.animationActive = true;
     }
-    if (typeof options.addstyle === 'undefined') {
-      options.addstyle = true;
+    if (typeof options.addStyle === 'undefined') {
+      options.addStyle = true;
     }
-    if (typeof options.changecolor === 'undefined') {
-      options.changecolor = true;
+    if (typeof options.changeColor === 'undefined') {
+      options.changeColor = true;
     }
     if (typeof options.iconParent === 'undefined') {
       options.iconParent = document.body;
@@ -80,7 +80,7 @@ export default class DvdScreensaver {
       this.icon.style.position = 'absolute';
     }
 
-    if (options.addstyle) {
+    if (options.addStyle) {
       this.changeWidth(options.width, false);
       this.icon.style.background = 'transparent';
       this.icon.style.cssText += 'pointer-events: none;';
@@ -88,7 +88,7 @@ export default class DvdScreensaver {
     }
 
     this.oldColorNumber = 0;
-    if (options.changecolor === false) {
+    if (options.changeColor === false) {
       this.oldColorNumber = -1;
     }
     this.changeColor();
@@ -97,9 +97,9 @@ export default class DvdScreensaver {
     this.dirX = options.dirX;
     this.dirY = options.dirY;
 
-    this.checkcornerhit = false; // variable to only check cornerhit after wallhit
+    this.shouldCheckCornerHit = false; // variable to only check corner hit after wall hit
     this.cornerHits = 0;
-    this.wallhits = 0;
+    this.wallHits = 0;
     this.animationActive = 0; // this.start() uses this var
     this.stopAnimation = 0;
 
@@ -180,69 +180,69 @@ export default class DvdScreensaver {
     this.dirY = dirY;
   }
 
-  wallHit(countwallhit: boolean) {
+  private wallHit(countWallHit: boolean) {
     DvdScreensaver.wallHitsCount++;
-    this.wallhits++;
-    dvdlogoStatsUpdate();
-    this.checkcornerhit = true;
+    this.wallHits++;
+    DvdScreensaver.dvdlogoStatsUpdate();
+    this.shouldCheckCornerHit = true;
     this.changeColor();
   }
 
-  checkWallHit(countwallhit = false) {
-    let wallhit = false;
+  private checkWallHit(countWallHit = false) {
+    let wallHit = false;
     if (this.hitTop || this.checkHitTop()) {
       this.hitTop = false;
       this.dirY = '+';
-      this.wallHit(countwallhit);
-      wallhit = true;
+      this.wallHit(countWallHit);
+      wallHit = true;
     }
     if (this.hitRight || this.checkHitRight()) {
       this.hitRight = false;
       this.dirX = '-';
-      this.wallHit(countwallhit);
-      wallhit = true;
+      this.wallHit(countWallHit);
+      wallHit = true;
     }
     if (this.hitBottom || this.checkHitBottom()) {
       this.hitBottom = false;
       this.dirY = '-';
-      this.wallHit(countwallhit);
-      wallhit = true;
+      this.wallHit(countWallHit);
+      wallHit = true;
     }
     if (this.hitLeft || this.checkHitLeft()) {
       this.hitLeft = false;
       this.dirX = '+';
-      this.wallHit(countwallhit);
-      wallhit = true;
+      this.wallHit(countWallHit);
+      wallHit = true;
     }
-    return wallhit;
+    return wallHit;
   }
 
-  checkHitTop(addvalue = 0, absolutepos = this.getIconY()) {
+  private checkHitTop(addValue = 0, absolutePos = this.getIconY()) {
     //  return this.getIconY()  <= 0;
-    return DvdScreensaver.operate[this.dirY](absolutepos, addvalue) <= 0;
+    return DvdScreensaver.operate[this.dirY](absolutePos, addValue) <= 0;
   }
 
-  checkHitRight(addvalue = 0, absolutepos = this.getIconX()) {
+  private checkHitRight(addValue = 0, absolutePos = this.getIconX()) {
     //  return this.getIconX()  + this.icon.clientWidth >= this.icon.parentNode.clientWidth;
-    return DvdScreensaver.operate[this.dirX](absolutepos, addvalue) +
+    return DvdScreensaver.operate[this.dirX](absolutePos, addValue) +
     this.icon.clientWidth >= this.icon.parentNode.clientWidth;
   }
 
-  checkHitBottom(addvalue = 0, absolutepos = this.getIconY()) {
+  private checkHitBottom(addValue = 0, absolutePos = this.getIconY()) {
     //  return this.getIconY() + this.icon.clientHeight >= this.icon.parentNode.clientHeight;
-    return DvdScreensaver.operate[this.dirY](absolutepos, addvalue) +
+    return DvdScreensaver.operate[this.dirY](absolutePos, addValue) +
     this.icon.clientHeight >= this.icon.parentNode.clientHeight;
   }
 
-  checkHitLeft(addvalue = 0, absolutepos = this.getIconX()) {
+  private checkHitLeft(addValue = 0, absolutePos = this.getIconX()) {
     //  return this.getIconX()  <= 0;
-    return DvdScreensaver.operate[this.dirX](absolutepos, addvalue) <= 0;
+    return DvdScreensaver.operate[this.dirX](absolutePos, addValue) <= 0;
   }
 
-  checkCornerHit() {
-    let cornerhit = false;
-    if (this.checkcornerhit) {
-      this.checkcornerhit = false;
+  private checkCornerHit() {
+    let cornerHit = false;
+    if (this.shouldCheckCornerHit) {
+      this.shouldCheckCornerHit = false;
       if ((this.checkHitTop() && this.checkHitLeft()) ||
         (this.checkHitTop() && this.checkHitRight()) ||
         (this.checkHitBottom() && this.checkHitLeft()) ||
@@ -250,66 +250,66 @@ export default class DvdScreensaver {
       ) {
         DvdScreensaver.cornerHitCount++;
         this.cornerHits++;
-        dvdlogoStatsUpdate();
-        cornerhit = true;
+        DvdScreensaver.dvdlogoStatsUpdate();
+        cornerHit = true;
       }
     }
-    return cornerhit;
+    return cornerHit;
   }
 
-  checkHit(countwallhit = false) {
-    const hit = this.checkWallHit(countwallhit);
+  private checkHit(countWallHit = false) {
+    const hit = this.checkWallHit(countWallHit);
     this.checkCornerHit();
     return hit;
   }
 
   getIconX() {
-    // return this.icon.x; //this method results in false cordinats wjile zooming in browser
+    // return this.icon.x; //this method results in false coordinates while zooming in browser
     return parseInt(this.icon.style.left, 10);
   }
   getIconY() {
-    // return this.icon.y; //this method results in false cordinats wjile zooming in browser
+    // return this.icon.y; //this method results in false coordinates while zooming in browser
     return parseInt(this.icon.style.top, 10);
   }
 
-  setIcon(xadd = 0, yadd = 0, forcestop = 0, usedefaults = true) {
-    let xadd2 = 0;
-    let yadd2 = 0;
-    if (usedefaults) {
-      xadd = this.speedX;
-      yadd = this.speedY;
+  private setIcon(xAdd = 0, yAdd = 0, forceStop = 0, useDefaults = true) {
+    let xAdd2 = 0;
+    let yAdd2 = 0;
+    if (useDefaults) {
+      xAdd = this.speedX;
+      yAdd = this.speedY;
     } else {
-      //  console.log("add x " + xadd + "!!!, add y " + yadd + "!!!");
+      //  console.log("add x " + xAdd + "!!!, add y " + yAdd + "!!!");
     }
 
     if (this.dirX === '+') {
-      if (this.checkHitRight(xadd)) {
-        xadd2 = DvdScreensaver.operate[this.dirX](this.getIconX(), xadd) -
+      if (this.checkHitRight(xAdd)) {
+        xAdd2 = DvdScreensaver.operate[this.dirX](this.getIconX(), xAdd) -
         (this.icon.parentNode.clientWidth - this.icon.clientWidth);
       }
     } else {
-      if (this.checkHitLeft(xadd)) {
-        xadd2 = -DvdScreensaver.operate[this.dirX](this.getIconX(), xadd);
+      if (this.checkHitLeft(xAdd)) {
+        xAdd2 = -DvdScreensaver.operate[this.dirX](this.getIconX(), xAdd);
       }
     }
-    this.setX(DvdScreensaver.operate[this.dirX](this.getIconX(), xadd));
+    this.setX(DvdScreensaver.operate[this.dirX](this.getIconX(), xAdd));
 
     if (this.dirY === '+') {
-      if (this.checkHitBottom(yadd)) {
-        yadd2 = DvdScreensaver.operate[this.dirY](this.getIconY(), yadd) -
+      if (this.checkHitBottom(yAdd)) {
+        yAdd2 = DvdScreensaver.operate[this.dirY](this.getIconY(), yAdd) -
         (this.icon.parentNode.clientHeight - this.icon.clientHeight);
       }
     } else {
-      if (this.checkHitTop(yadd)) {
-        yadd2 = -DvdScreensaver.operate[this.dirY](this.getIconY(), yadd);
+      if (this.checkHitTop(yAdd)) {
+        yAdd2 = -DvdScreensaver.operate[this.dirY](this.getIconY(), yAdd);
       }
     }
-    this.setY(DvdScreensaver.operate[this.dirY](this.getIconY(), yadd));
+    this.setY(DvdScreensaver.operate[this.dirY](this.getIconY(), yAdd));
 
     if (this.checkHit(true)) {
-      if (xadd2 !== 0 || yadd2 !== 0) {
-        if (forcestop < 10) {
-          this.setIcon(xadd2, yadd2, ++forcestop, false);
+      if (xAdd2 !== 0 || yAdd2 !== 0) {
+        if (forceStop < 10) {
+          this.setIcon(xAdd2, yAdd2, ++forceStop, false);
 
         } else {
           console.log('stopped to long setIcon loop!!!');
@@ -351,7 +351,7 @@ export default class DvdScreensaver {
     this.icon.style.top = `${y}px`;
   }
 
-  update() {
+  private update() {
     this.setIcon();
     if (this.stopAnimation <= 0) {
       window.requestAnimationFrame(this.update.bind(this));
@@ -385,8 +385,7 @@ export default class DvdScreensaver {
 
   static cornerHitCount = 0;
   static wallHitsCount = 0;
-  static printstats = false;
-  static filterColors = [
+  private static filterColors = [
     'invert(.3) sepia(1) saturate(8) hue-rotate(70deg)', // green
     'invert(.63) sepia(1) saturate(8) hue-rotate(70deg)', // light green
     'invert(.8) sepia(1) saturate(5) hue-rotate(150deg)', // light blue
@@ -396,7 +395,7 @@ export default class DvdScreensaver {
     'invert(.8) sepia(1) saturate(5) hue-rotate(350deg)', // yellow
   ];
 
-  static operate = {
+  private static operate = {
     '+': (a: number, b: number): number => {
       return a + b;
     },
@@ -404,45 +403,52 @@ export default class DvdScreensaver {
       return a - b;
     },
   };
-}
 
-(() => {
-  const dvdstats = document.getElementById('dvd-stats');
-  if (dvdstats != null) {
-    DvdScreensaver.printstats = true;
-    dvdstats.style.position = 'fixed';
-    dvdstats.style.bottom = '0';
-    dvdstats.style.left = '0';
 
-    let newDiv = document.createElement('div');
-    let newSpan = document.createElement('spann');
-    let newContent = document.createTextNode('Cornerhits');
-    newSpan.setAttribute('id', 'dvd-cornerhits');
-    newSpan.textContent = '0';
-    newDiv.appendChild(newSpan);
-    newDiv.appendChild(newContent);
-    dvdstats.appendChild(newDiv);
+  private static printStats: {
+    cornerHits: HTMLSpanElement,
+    wallHits: HTMLSpanElement,
+  }|null = null;
+  static enableStatistics() {
+    const dvdStats = document.createElement('div');
+    dvdStats.style.position = 'fixed';
+    dvdStats.style.bottom = '0';
+    dvdStats.style.left = '0';
 
-    newDiv = document.createElement('div');
-    newSpan = document.createElement('spann');
-    newContent = document.createTextNode('Wallhits');
-    newSpan.setAttribute('id', 'dvd-wallhits');
-    newSpan.textContent = '0';
-    newDiv.appendChild(newSpan);
-    newDiv.appendChild(newContent);
-    dvdstats.appendChild(newDiv);
+    DvdScreensaver.createStatsElemBasic(dvdStats);
+
+    document.body.appendChild(dvdStats);
   }
-})();
 
-function dvdlogoStatsUpdate() {
-  if (DvdScreensaver.printstats) {
-    const wallhitsCounter = document.getElementById('dvd-wallhits');
-    if (wallhitsCounter) {
-      wallhitsCounter.innerHTML = DvdScreensaver.wallHitsCount.toString();
-    }
-    const cornerhitsCounter = document.getElementById('dvd-cornerhits');
-    if (cornerhitsCounter) {
-      cornerhitsCounter.innerHTML = DvdScreensaver.cornerHitCount.toString();
+  static createStatsElemBasic(dvdStats: HTMLElement) {
+    const cornerHitWrapper = document.createElement('div');
+    const cornerHitSpan = document.createElement('span');
+    cornerHitSpan.textContent = '0';
+    cornerHitWrapper.appendChild(cornerHitSpan);
+    cornerHitWrapper.appendChild(document.createTextNode('corner hits'));
+    dvdStats.appendChild(cornerHitWrapper);
+  
+    const wallHitWrapper = document.createElement('div');
+    const wallHitSpan = document.createElement('span');
+    wallHitSpan.textContent = '0';
+    wallHitWrapper.appendChild(wallHitSpan);
+    wallHitWrapper.appendChild(document.createTextNode('wall hits'));
+    dvdStats.appendChild(wallHitWrapper);
+
+    DvdScreensaver.printStats = {
+      cornerHits: cornerHitSpan,
+      wallHits: wallHitSpan,
+    };
+  }
+
+  private static dvdlogoStatsUpdate() {
+    if (DvdScreensaver.printStats) {
+      if (DvdScreensaver.printStats.wallHits) {
+        DvdScreensaver.printStats.wallHits.innerHTML = DvdScreensaver.wallHitsCount.toString();
+      }
+      if (DvdScreensaver.printStats.cornerHits) {
+        DvdScreensaver.printStats.cornerHits.innerHTML = DvdScreensaver.cornerHitCount.toString();
+      }
     }
   }
 }
