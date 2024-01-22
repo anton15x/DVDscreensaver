@@ -6,6 +6,8 @@ Demo: [https://anton15x.github.io/DVDscreensaver/demo/minimal_demo.html](https:/
 
 Demo2: [https://anton15x.github.io/DVDscreensaver/demo/demo.html](https://anton15x.github.io/DVDscreensaver/demo/demo.html)
 
+Documentation: [https://anton15x.github.io/DVDscreensaver/](https://anton15x.github.io/DVDscreensaver/)
+
 ## Include the script
 ```html
 <script src="node_modules/dvd_screensaver/dist/dvd_screensaver.umd.js"></script>
