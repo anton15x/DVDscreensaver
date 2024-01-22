@@ -7,8 +7,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Build job
+  test:
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, latest] # <-- add "latest" for the most recent Node.js version
+        os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+    runs-on: ${{ matrix.os }}
+    name: "Test on ${{ matrix.os }} using Node ${{ matrix.node-version }}"
+    steps:
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Clean install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js for use with actions
