@@ -10,6 +10,8 @@
   ],
   "scripts": {
     "dev": "vite",
+    "doc": "typedoc src/main.ts --readme ./README.md --out ./docs",
+    "doc2": "typedoc src/main.ts",
     "build": "vite build",
     "lint": "echo TODO",
     "test": "npm run test_coverage",
@@ -25,6 +27,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-transformer-svg": "^2.0.2",
     "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
     "vite-plugin-dts": "^3.7.1"

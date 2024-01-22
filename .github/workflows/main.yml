@@ -21,15 +21,17 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Fix Upload artifact cuts folder name
+      - name: Generate Documentation
+        run: npm run doc
+      - name: Addd folders to docs folder
         run: |
-          mv dist dist2
-          mkdir dist
-          mv dist2 dist/dist
+          cp -r dist docs/
+          cp -r demo docs/
+          cp -r img docs/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./docs
 
   # Deploy job
   gh-pages-deploy:
