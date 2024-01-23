@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 // config file settings:
 // https://cspell.org/configuration/
 

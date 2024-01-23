@@ -9,8 +9,14 @@ Demo2: [https://anton15x.github.io/DVDscreensaver/demo/demo.html](https://anton1
 Documentation: [https://anton15x.github.io/DVDscreensaver/](https://anton15x.github.io/DVDscreensaver/)
 
 ## Include the script
+usage in html:
 ```html
 <script src="node_modules/dvd_screensaver/dist/dvd_screensaver.umd.js"></script>
+```
+
+or in typescript:
+```typescript
+import DvdScreensaver from "dvd_screensaver";
 ```
 
 ## Compile

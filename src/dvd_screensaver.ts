@@ -3,8 +3,27 @@ import DVDVideoLogoSvgCode from '../img/DVD-Video_Logo.svg';
 
 type Direction = '+'|'-';
 
+export interface DvdScreensaverOptions {
+  icon?: HTMLElement|null;
+  animationActive?: boolean;
+  addStyle?: boolean;
+  changeColor?: boolean;
+  iconParent?: HTMLElement;
+  width?: string;
+  height?: string;
+  startX?: number;
+  startY?: number;
+  speedX?: number;
+  speedY?: number;
+  dirX?: Direction;
+  dirY?: Direction;
+}
+
 export default class DvdScreensaver {
-  private icon: any; // HTMLElement; // HTMLElements makes much errors currently => any (for now)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private icon: HTMLElement & {
+    parentNode: HTMLElement,
+  }; // HTMLElements makes much errors currently => any (for now)
   private animationActive: number;
   private stopAnimation: number;
   private oldColorNumber: number;
@@ -27,7 +46,7 @@ export default class DvdScreensaver {
   private hitBottom: boolean;
   private hitLeft: boolean;
 
-  constructor(options: any = {}) {
+  constructor(options: DvdScreensaverOptions = {}) {
 
     if (typeof options.icon === 'undefined') {
       options.icon = null;
@@ -69,10 +88,12 @@ export default class DvdScreensaver {
     if (options.icon == null) {
       const img = document.createElement('img');
       img.src = DVDVideoLogoSvgCode;
-      this.icon = options.iconParent.appendChild(img);
-    } else {
-      this.icon = options.icon;
+
+      options.iconParent.appendChild(img);
+      options.icon = img;
     }
+    // @ts-expect-error workaround for other ts errors, parentNode is assumed to be a HTMLElement here
+    this.icon = options.icon;
 
     if (this.icon.parentNode.isEqualNode(document.body)) {
       this.icon.style.position = 'fixed';
@@ -81,15 +102,16 @@ export default class DvdScreensaver {
     }
 
     if (options.addStyle) {
+      // @ts-expect-error ugly and incorrect, but this is just a sample tool practice project, so who cares.
       this.changeWidth(options.width, false);
       this.icon.style.background = 'transparent';
       this.icon.style.cssText += 'pointer-events: none;';
       this.icon.style.cssText += 'user-select: none;';
     }
 
-    this.oldColorNumber = 0;
-    if (options.changeColor === false) {
-      this.oldColorNumber = -1;
+    this.oldColorNumber = -1;
+    if (options.changeColor) {
+      this.oldColorNumber = 0;
     }
     this.changeColor();
     this.speedX = options.speedX;
@@ -134,14 +156,16 @@ export default class DvdScreensaver {
 
   changeWidth(width: number, keepSideRatio = true) {
     if (keepSideRatio) {
-      this.icon.style.height = this.icon.style.height / this.icon.style.width * width;
+      this.icon.style.height = (parseFloat(this.icon.style.height) / parseFloat(this.icon.style.width) * width).toString();
     } else {
       this.icon.style.height = 'auto';
     }
-    this.icon.style.width = width;
+    this.icon.style.width = width.toString();
   }
 
-  getWidth(split = false): any {
+  getWidth(split: true): string[]|null;
+  getWidth(split: false): string;
+  getWidth(split = false): string|string[]|null {
     if (split) {
       return splitNumberUnit(this.getWidth(false));
     }
@@ -150,14 +174,17 @@ export default class DvdScreensaver {
 
   changeHeight(height: number, keepSideRatio = true) {
     if (keepSideRatio) {
-      this.icon.style.width = this.icon.style.width / this.icon.style.height * height;
+      this.icon.style.width = (parseFloat(this.icon.style.width) / parseFloat(this.icon.style.height) * height).toString();
     } else {
       this.icon.style.width = 'auto';
     }
-    this.icon.style.height = height;
+    this.icon.style.height = height.toString();
   }
 
-  getHeight(split = false): any {
+
+  getHeight(split: true): string[]|null;
+  getHeight(split: false): string;
+  getHeight(split = false): string|string[]|null {
     if (split) {
       return splitNumberUnit(this.getHeight(false));
     } else {
@@ -166,8 +193,8 @@ export default class DvdScreensaver {
   }
 
   changeSize(width: number, height: number) {
-    this.icon.style.width = width;
-    this.icon.style.height = height;
+    this.icon.style.width = width.toString();
+    this.icon.style.height = height.toString();
   }
 
   changeSpeed(speedX: number, speedY: number) {
@@ -181,7 +208,10 @@ export default class DvdScreensaver {
   }
 
   private wallHit(countWallHit: boolean) {
-    DvdScreensaver.wallHitsCount++;
+    if (countWallHit) {
+      // TODO: always true anyway, remove flag in future here and in all calling functions?
+      DvdScreensaver.wallHitsCount++;
+    }
     this.wallHits++;
     DvdScreensaver.dvdlogoStatsUpdate();
     this.shouldCheckCornerHit = true;
@@ -380,6 +410,10 @@ export default class DvdScreensaver {
   }
 
   setImg(img: HTMLElement) {
+    if (img.parentNode && img.parentNode instanceof HTMLElement) {
+      throw new Error('img parentNode must be set and a htmlElement');
+    }
+    // @ts-expect-error parentNode can still be null, but ignore that here
     this.icon = img;
   }
 
@@ -406,8 +440,8 @@ export default class DvdScreensaver {
 
 
   private static printStats: {
-    cornerHits: HTMLSpanElement,
-    wallHits: HTMLSpanElement,
+    cornerHits?: HTMLSpanElement,
+    wallHits?: HTMLSpanElement,
   }|null = null;
   static enableStatistics() {
     const dvdStats = document.createElement('div');
